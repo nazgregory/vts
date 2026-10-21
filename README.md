@@ -17,7 +17,7 @@
 
 ## 프로젝트 소개
 
-![사용 화면](./docs/demo.mp4){width=960}
+[![사용 화면](https://img.youtube.com/vi/lZly16Eou30/hqdefault.jpg)](https://youtu.be/lZly16Eou30)
 <p align="center">
   <a href="https://vts.seocho.go.kr">시각화 도구 사용해보기</a>
 </p>
@@ -46,7 +46,7 @@
 
 시각화 갤러리 : 다양한 차트 예제를 제공하여 사용자가 적절한 시각화 전략을 수립할 수 있도록 지원
 
-![사용 화면](./docs/gallary.mp4){width=960}
+[![사용 화면](https://img.youtube.com/vi/ATuh7xSUmv4/hqdefault.jpg)](https://youtu.be/ATuh7xSUmv4)
 
 
 ## 오픈소스 공개 및 활용 안내
