@@ -17,7 +17,7 @@
 
 ## About
 
-![Demo](./docs/demo.mp4){width=960}
+[![Demo](https://img.youtube.com/vi/lZly16Eou30/hqdefault.jpg)](https://youtu.be/lZly16Eou30)
 <p align="center">
   <a href="https://vts.seocho.go.kr">Try it : Visualization Tools</a>
 </p>
@@ -38,7 +38,7 @@ The project is published so that other local governments, public agencies, and d
 - Image download for reports and presentations
 - A visualization gallery of chart examples
 
-![Gallery](./docs/gallary.mp4){width=960}
+[![Gallery](https://img.youtube.com/vi/ATuh7xSUmv4/hqdefault.jpg)](https://youtu.be/ATuh7xSUmv4)
 
 ## Open-source use
 
