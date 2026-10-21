@@ -1,0 +1,72 @@
+{
+  "chart_colors": {
+    "primary": ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8", "#82ca9d"],
+    "secondary": ["#FF6B6B", "#4ECDC4", "#45B7D1", "#96CEB4", "#FFEAA7", "#DDA0DD"],
+    "pastel": ["#FFB3BA", "#BAFFC9", "#BAE1FF", "#FFFFBA", "#FFB3F7", "#B3F7FF"],
+    "heatmap_special": {
+      "plasma": ["#0d0887", "#7e03a8", "#cc4778", "#f89441", "#f0f921"],
+      "inferno": ["#000004", "#1b0c41", "#4a0c6b", "#781c6d", "#a52c60", "#cf4446", "#e76d5a", "#f7b799", "#fde725"],
+      "magma": ["#000004", "#180f3e", "#440f76", "#721f81", "#9e2f7f", "#cb3e71", "#e95c5c", "#f78357", "#fbb43f", "#fde725"],
+      "viridis": ["#440154", "#482878", "#3e4989", "#31688e", "#26828e", "#1f9e89", "#35b779", "#6ece58", "#b5de2b", "#fde725"],
+      "ReBu": ["#67001f", "#b2182b", "#d6604d", "#f4a582", "#fddbc7", "#f7f7f7", "#d1e5f0", "#92c5de", "#4393c3", "#2166ac", "#053061"],
+      "Blues": ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"],
+      "coolwarm": ["#3b4cc0", "#6877d1", "#8fa0e0", "#b3c7ed", "#d4e4f7", "#f7f7f7", "#fde0d9", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"],
+      "Greens": ["#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#006d2c", "#00441b"],
+      "Oranges": ["#fff7ec", "#fee8c8", "#fdd49e", "#fdbe85", "#fd8d3c", "#e6550d", "#d94801", "#a63603", "#7f2704"],
+      "Reds": ["#fff5f0", "#fee0d2", "#fcbba1", "#fc9272", "#fb6a4a", "#ef3b2c", "#cb181d", "#a50f15", "#67000d"],
+      "Purples": ["#fcfbfd", "#efedf5", "#dadaeb", "#bcbddc", "#9e9ac8", "#807dba", "#6a51a3", "#54278f", "#3f007d"],
+      "YlOrBr": ["#ffffe5", "#fff7bc", "#fee391", "#fec44f", "#fe9929", "#ec7014", "#cc4c02", "#993404", "#662506"]
+    }
+  },
+  "chart_types": {
+    "comparison_trend": ["선형 그래프", "누적 영역 그래프", "막대 그래프", "누적 막대 그래프"],
+    "ratio_composition": ["원형 차트", "도넛 차트", "선버스트 차트", "트리맵"],
+    "distribution_relation": ["산점도", "버블 차트", "히스토그램", "박스플롯"],
+    "special_analysis": ["레이더 차트", "타임라인 차트", "게이지 차트", "워드클라우드"],
+    "advanced_analysis": ["히트맵", "워터폴 차트", "콤보 차트", "파넬 차트"],
+    "map_location": ["지도 시각화"]
+  },
+  "sample_data_templates": {
+    "막대 그래프": "카테고리,값\n제품A,350\n제품B,280\n제품C,420",
+    "선형 그래프": "날짜,매출,방문자수\n2024-01,1200,450\n2024-02,1350,520\n2024-03,1180,480",
+    "원형 차트": "항목,비율\n모바일,45\n데스크톱,35\n태블릿,20",
+    "히트맵": "행,열,값\nA,1,10\nA,2,20\nB,1,15\nB,2,25",
+    "산점도": "X값,Y값\n1,2\n2,4\n3,6\n4,8"
+  },
+  "file_upload": {
+    "max_size_mb": 10,
+    "allowed_types": [".csv", ".xlsx"],
+    "drag_drop_text": "파일을 여기에 드래그하거나 클릭하여 업로드하세요",
+    "encoding": ["UTF-8", "UTF-8 BOM"]
+  },
+  "sample_data_download": {
+    "format": "xlsx",
+    "description": "샘플 데이터는 XLSX 형식으로 다운로드됩니다",
+    "supported_formats": ["xlsx", "csv"]
+  },
+  "map_visualization": {
+    "default_style": "default",
+    "available_styles": {
+      "default": "기본 지도 (OpenStreetMap)",
+      "simplified": "간소화 지도 (CartoDB)"
+    },
+    "tile_layers": {
+      "default": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      "simplified": "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      "internal": "VITE_MAP_TILE_URL 환경변수가 있으면 그 주소를 사용한다"
+    }
+  },
+
+  "ui_settings": {
+    "header_colors": {
+      "main_page": "#3B82F6",
+      "visualization_gallery": "#10B981"
+    },
+    "loading_animation": {
+      "type": "StarLoader",
+      "default_size": 40,
+      "default_speed": 1.0,
+      "default_gap": 15
+    }
+  }
+} 

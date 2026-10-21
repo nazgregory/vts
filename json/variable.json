@@ -1,0 +1,130 @@
+{
+  "state_variables": {
+    "selectedChartType": {
+      "type": "string",
+      "description": "사용자가 선택한 차트 유형",
+      "values": ["선형 그래프", "누적 영역 그래프", "막대 그래프", "누적 막대 그래프", "원형 차트", "도넛 차트", "선버스트 차트", "트리맵", "산점도", "버블 차트", "히스토그램", "박스플롯", "레이더 차트", "타임라인 차트", "게이지 차트", "워드클라우드", "히트맵", "워터폴 차트", "콤보 차트", "파넬 차트", "지도 시각화"],
+      "file": "src/components/ChartTypeSelector.tsx"
+    },
+    "chartData": {
+      "type": "array",
+      "description": "차트에 표시할 데이터 배열",
+      "structure": "각 객체는 헤더를 키로, 데이터 값을 값으로 가지는 형태",
+      "file": "src/components/DataInputCard.tsx"
+    },
+    "currentStep": {
+      "type": "number",
+      "description": "현재 진행 단계 (1: 차트 선택, 2: 데이터 입력, 3: 차트 생성)",
+      "range": [1, 2, 3],
+      "file": "src/components/VisualizationDashboard.tsx"
+    },
+
+    "uploadedFile": {
+      "type": "File | null",
+      "description": "사용자가 업로드한 파일 객체",
+      "allowed_types": [".csv", ".xlsx"],
+      "file": "src/components/DataInputCard.tsx"
+    },
+    "chartCustomization": {
+      "type": "object",
+      "description": "차트 커스터마이징 설정",
+      "properties": {
+        "title": "차트 제목",
+        "colors": "색상 팔레트",
+        "axisLabels": "축 레이블",
+        "legendPosition": "범례 위치",
+        "legendStyle": "범례 스타일",
+        "gridLines": "격자선 표시",
+        "tooltip": "툴팁 표시"
+      },
+      "file": "src/components/ChartCustomizationPanel.tsx"
+    }
+  },
+  "function_parameters": {
+    "onTypeSelect": {
+      "type": "function",
+      "description": "차트 유형 선택 시 호출되는 콜백 함수",
+      "parameters": ["chartType: string"],
+      "file": "src/components/ChartTypeSelector.tsx"
+    },
+    "onDataSubmit": {
+      "type": "function",
+      "description": "데이터 제출 시 호출되는 콜백 함수",
+      "parameters": ["data: array"],
+      "file": "src/components/DataInputCard.tsx"
+    },
+    "onFileUpload": {
+      "type": "function",
+      "description": "파일 업로드 시 호출되는 콜백 함수",
+      "parameters": ["file: File"],
+      "file": "src/components/FileUpload.tsx"
+    },
+    "onCustomizationChange": {
+      "type": "function",
+      "description": "커스터마이징 설정 변경 시 호출되는 콜백 함수",
+      "parameters": ["settings: object"],
+      "file": "src/components/ChartCustomizationPanel.tsx"
+    }
+  },
+  "constants": {
+    "MAX_FILE_SIZE": {
+      "value": 10485760,
+      "description": "최대 파일 크기 (10MB)",
+      "unit": "bytes",
+      "file": "src/utils/dataParser.ts"
+    },
+    "SUPPORTED_CHART_TYPES": {
+      "value": ["선형 그래프", "누적 영역 그래프", "막대 그래프", "누적 막대 그래프", "원형 차트", "도넛 차트", "선버스트 차트", "트리맵", "산점도", "버블 차트", "히스토그램", "박스플롯", "레이더 차트", "타임라인 차트", "게이지 차트", "워드클라우드", "히트맵", "워터폴 차트", "콤보 차트", "파넬 차트", "지도 시각화"],
+      "description": "지원되는 차트 유형 목록 (21가지)",
+      "file": "src/components/ChartTypeSelector.tsx"
+    },
+    "DEFAULT_COLORS": {
+      "value": ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8", "#82ca9d"],
+      "description": "기본 차트 색상 팔레트",
+      "file": "src/utils/colorPalettes.ts"
+    }
+  },
+  "data_structures": {
+    "ChartData": {
+      "description": "차트 데이터 구조",
+      "example": [
+        {"날짜": "2024-01", "매출": 1200, "방문자수": 450},
+        {"날짜": "2024-02", "매출": 1350, "방문자수": 520}
+      ],
+      "file": "src/types/index.ts"
+    },
+    "ChartCustomization": {
+      "description": "차트 커스터마이징 설정 구조",
+      "properties": {
+        "title": "string",
+        "subtitle": "string",
+        "colors": "array<string>",
+        "axisLabels": {
+          "x": "string",
+          "y": "string"
+        },
+        "legendPosition": "string",
+        "legendStyle": "string",
+        "gridLines": "boolean",
+        "tooltip": "boolean"
+      },
+      "file": "src/types/chartCustomization.ts"
+    }
+  },
+  "color_palettes": {
+    "heatmap_colors": {
+      "plasma": ["#0d0887", "#7e03a8", "#cc4778", "#f89441", "#f0f921"],
+      "inferno": ["#000004", "#1b0c41", "#4a0c6b", "#781c6d", "#a52c60", "#cf4446", "#e76d5a", "#f7b799", "#fde725"],
+      "magma": ["#000004", "#180f3e", "#440f76", "#721f81", "#9e2f7f", "#cb3e71", "#e95c5c", "#f78357", "#fbb43f", "#fde725"],
+      "viridis": ["#440154", "#482878", "#3e4989", "#31688e", "#26828e", "#1f9e89", "#35b779", "#6ece58", "#b5de2b", "#fde725"]
+    },
+    "category_colors": {
+      "comparison_trend": "#2563EB",
+      "ratio_composition": "#9333EA",
+      "distribution_relation": "#16A34A",
+      "special_analysis": "#EA580C",
+      "advanced_analysis": "#DC2626",
+      "map_location": "#4F46E5"
+    }
+  }
+} 

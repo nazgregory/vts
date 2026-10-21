@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 세션 테이블 - IP 해시 기반 사용자 세션 관리
+model Session {
+  id              String   @id @default(uuid()) @db.Uuid
+  ipHash          String   @map("ip_hash") @db.Text
+  userAgent       String?  @map("ua") @db.Text
+  firstSeenAt     DateTime @default(now()) @map("first_seen_at") @db.Timestamptz
+  lastSeenAt      DateTime @default(now()) @map("last_seen_at") @db.Timestamptz
+  approxGeo       String?  @map("approx_geo") @db.Text
+  networkBucket   String?  @map("network_bucket") @db.Text
+  attrs           Json     @default("{}") @db.JsonB
+
+  // 관계
+  events          Event[]
+  files           File[]
+  charts          Chart[]
+  downloads       Download[]
+  errors          Error[]
+  satisfactionRatings SatisfactionRating[]
+
+  @@map("sessions")
+  @@index([ipHash], map: "idx_sessions_iphash")
+  @@index([lastSeenAt], map: "idx_sessions_lastseen")
+}
+
+// 이벤트 테이블 - 범용 이벤트 소싱
+model Event {
+  id          BigInt   @id @default(autoincrement())
+  sessionId   String   @map("session_id") @db.Uuid
+  occurredAt  DateTime @default(now()) @map("occurred_at") @db.Timestamptz
+  category    String   @db.Text
+  name        String   @db.Text
+  pagePath    String?  @map("page_path") @db.Text
+  referrer    String?  @db.Text
+  durationMs  Int?     @map("duration_ms")
+  success     Boolean?
+  payload     Json     @default("{}") @db.JsonB
+
+  // 관계
+  session     Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("events")
+  @@index([occurredAt], map: "idx_events_time")
+  @@index([category, name], map: "idx_events_cat_name")
+}
+
+// 파일 메타데이터 테이블
+model File {
+  id          String   @id @default(uuid()) @db.Uuid
+  sessionId   String?  @map("session_id") @db.Uuid
+  filename    String?  @db.Text
+  bytes       Int?
+  rows        Int?
+  cols        Int?
+  mime        String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // 관계
+  session     Session? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@map("files")
+}
+
+// 차트 메타데이터 테이블
+model Chart {
+  id          String   @id @default(uuid()) @db.Uuid
+  sessionId   String?  @map("session_id") @db.Uuid
+  chartType   String   @map("chart_type") @db.Text
+  library     String?  @db.Text
+  renderMs    Int?     @map("render_ms")
+  settings    Json     @default("{}") @db.JsonB
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  success     Boolean?
+
+  // 관계
+  session     Session? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  downloads   Download[]
+
+  @@map("charts")
+}
+
+// 다운로드 테이블
+model Download {
+  id          BigInt   @id @default(autoincrement())
+  chartId     String?  @map("chart_id") @db.Uuid
+  sessionId   String?  @map("session_id") @db.Uuid
+  format      String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // 관계
+  chart       Chart?   @relation(fields: [chartId], references: [id], onDelete: SetNull)
+  session     Session? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@map("downloads")
+}
+
+// 오류 테이블
+model Error {
+  id          BigInt   @id @default(autoincrement())
+  sessionId   String?  @map("session_id") @db.Uuid
+  occurredAt  DateTime @default(now()) @map("occurred_at") @db.Timestamptz
+  message     String?  @db.Text
+  stack       String?  @db.Text
+  context     Json     @default("{}") @db.JsonB
+
+  // 관계
+  session     Session? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@map("errors")
+}
+
+// 만족도 평가 테이블
+model SatisfactionRating {
+  id            String   @id @default(uuid()) @db.Uuid
+  sessionId     String?  @map("session_id") @db.Uuid
+  chartId       String   @map("chart_id") @db.Text
+  chartType     String   @map("chart_type") @db.Text
+  isCustomized  Boolean? @map("is_customized")
+  category      String   @default("visualization") @db.Text // 'visualization' | 'customization' | 'gallery'
+  recommendation String  @db.Text // 'recommend' | 'not_recommend'
+  starRating    Float    @map("star_rating") // 0-5, 0.5 단위
+  createdAt     DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  // 관계
+  session       Session? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@map("satisfaction_ratings")
+  @@index([chartType], map: "idx_satisfaction_chart_type")
+  @@index([isCustomized], map: "idx_satisfaction_customized")
+  @@index([category], map: "idx_satisfaction_category")
+  @@index([createdAt], map: "idx_satisfaction_created")
+}

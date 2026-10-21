@@ -1,0 +1,169 @@
+{
+  "backend_overview": {
+    "name": "데이터 시각화 도구 트래킹 서버",
+    "version": "1.0.0",
+    "last_updated": "2026-10-21",
+    "description": "차트 화면의 사용 이력과 만족도를 저장하는 Node.js 백엔드. 관리자 API, 메시지 API, 자동 삭제 스케줄러는 없다."
+  },
+  "architecture": {
+    "pattern": "Layered Architecture",
+    "layers": {
+      "presentation": "Express.js Routes",
+      "business": "Services (Session, Event)",
+      "data": "Prisma ORM + PostgreSQL",
+      "infrastructure": "Middleware (Security, Validation, Logging)"
+    }
+  },
+  "core_services": {
+    "sessionService": {
+      "purpose": "세션 관리 및 IP 해시 기반 사용자 식별",
+      "key_features": [
+        "IP 해시화 (SHA-256)",
+        "User Agent 기반 봇 필터링",
+        "세션 생성/검증",
+        "intranet 또는 external 구분"
+      ],
+      "endpoints": [
+        "POST /api/session/start",
+        "POST /api/session/validate"
+      ]
+    },
+    "eventService": {
+      "purpose": "이벤트 수집 및 배치 처리",
+      "key_features": [
+        "배치 처리 (최대 200개 이벤트)",
+        "클라이언트-서버 시간 동기화",
+        "이벤트 소싱 패턴",
+        "메타데이터 수집"
+      ],
+      "endpoints": [
+        "POST /api/collect"
+      ]
+    }
+  },
+  "security_features": {
+    "ip_protection": {
+      "description": "원본 IP 주소를 SHA-256으로 해시화하여 저장",
+      "implementation": "crypto.createHash('sha256').update(ip + salt).digest('hex')"
+    },
+    "bot_filtering": {
+      "description": "User Agent 기반 봇/크롤러 감지 및 차단",
+      "patterns": ["bot", "crawler", "spider", "scraper"]
+    },
+    "rate_limiting": {
+      "description": "IP 기반 요청 속도 제한으로 DDoS 방지",
+      "limits": {
+        "session": "100 requests per 15 minutes",
+        "collect": "200 requests per minute"
+      }
+    }
+  },
+  "data_model": {
+    "sessions": {
+      "description": "IP 해시 기반 사용자 세션",
+      "key_fields": [
+        "id (UUID)",
+        "ipHash (SHA-256)",
+        "userAgent",
+        "firstSeenAt",
+        "lastSeenAt",
+        "approxGeo",
+        "networkBucket"
+      ]
+    },
+    "events": {
+      "description": "범용 이벤트 소싱",
+      "key_fields": [
+        "id (BigInt)",
+        "sessionId (UUID)",
+        "occurredAt",
+        "category",
+        "name",
+        "pagePath",
+        "payload (JSONB)"
+      ]
+    },
+    "files": {
+      "description": "파일 메타데이터. 파일 내용은 저장하지 않는다",
+      "key_fields": [
+        "sessionId",
+        "filename",
+        "bytes",
+        "rows",
+        "cols",
+        "mime"
+      ]
+    },
+    "charts": {
+      "description": "차트 생성 메타데이터",
+      "key_fields": [
+        "sessionId",
+        "chartType",
+        "library",
+        "renderMs",
+        "success"
+      ]
+    },
+    "downloads": {
+      "description": "다운로드 메타데이터",
+      "key_fields": [
+        "sessionId",
+        "chartId",
+        "format"
+      ]
+    },
+    "errors": {
+      "description": "클라이언트 오류 이벤트",
+      "key_fields": [
+        "sessionId",
+        "message",
+        "occurredAt"
+      ]
+    },
+    "satisfaction_ratings": {
+      "description": "차트 만족도. 추천 여부와 별점",
+      "key_fields": [
+        "sessionId",
+        "chartType",
+        "category",
+        "recommendation",
+        "starRating"
+      ]
+    }
+  },
+  "api_endpoints": {
+    "session_management": {
+      "POST /api/session/start": "새 세션 시작",
+      "POST /api/session/validate": "세션 유효성 검증"
+    },
+    "event_collection": {
+      "POST /api/collect": "이벤트 배치 수집"
+    },
+    "satisfaction": {
+      "POST /api/satisfaction-ratings": "차트 만족도 저장"
+    },
+    "system": {
+      "GET /": "서버 이름과 버전",
+      "GET /health": "상태, 업타임, 메모리"
+    }
+  },
+  "deployment_configuration": {
+    "runtime": "Node.js 18",
+    "database": "PostgreSQL",
+    "listen": "0.0.0.0",
+    "trust_proxy": "loopback",
+    "examples": [
+      "deploy/nginx.conf",
+      "deploy/pm2.config.cjs"
+    ],
+    "environment_variables": [
+      "DATABASE_URL",
+      "IP_SALT",
+      "ALLOWED_ORIGINS",
+      "PORT",
+      "NODE_ENV",
+      "BATCH_MAX",
+      "LOG_LEVEL"
+    ]
+  }
+}

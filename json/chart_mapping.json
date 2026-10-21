@@ -1,0 +1,455 @@
+{
+  "chart_mapping_rules": {
+    "comparison_trend_analysis": {
+      "line": {
+        "description": "데이터·변화 추세 확인용",
+        "required_columns": {
+          "time_series": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "날짜/시간 + 수치",
+          "순서 + 수치",
+          "카테고리 + 수치 (순서가 있는 경우)"
+        ],
+        "examples": [
+          "매출 추이 (날짜별)",
+          "성과 변화 (월별)",
+          "방문자 수 (시간대별)"
+        ],
+        "best_practices": [
+          "시간축은 X축에 배치",
+          "수치 데이터는 Y축에 배치",
+          "추세선은 단순하고 명확하게"
+        ]
+      },
+      "area": {
+        "description": "합계 추세와 구성비 동시 표현",
+        "required_columns": {
+          "time_series": 1,
+          "numeric": 2
+        },
+        "data_patterns": [
+          "시간 + 여러 수치 (누적)",
+          "순서 + 여러 수치 (누적)"
+        ],
+        "examples": [
+          "월별 매출 구성비",
+          "연도별 예산 배분",
+          "시간대별 트래픽 분포"
+        ],
+        "best_practices": [
+          "시간축은 X축에 배치",
+          "누적 영역은 투명도 조절",
+          "범례는 명확하게 표시"
+        ]
+      },
+      "bar": {
+        "description": "항목 간 값 비교",
+        "required_columns": {
+          "categorical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "카테고리 + 수치",
+          "항목 + 값",
+          "그룹 + 측정값"
+        ],
+        "examples": [
+          "제품별 매출",
+          "부서별 성과",
+          "지역별 인구"
+        ],
+        "best_practices": [
+          "카테고리는 X축에 배치",
+          "수치는 Y축에 배치",
+          "막대 간격은 적절하게"
+        ]
+      },
+      "stackedBar": {
+        "description": "시간별 누적 추세와 구성비 비교",
+        "required_columns": {
+          "time_series": 1,
+          "categorical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "시간 + 카테고리 + 수치",
+          "순서 + 그룹 + 비율"
+        ],
+        "examples": [
+          "월별 매출 구성비 변화",
+          "연도별 예산 배분 변화",
+          "분기별 시장 점유율 변화"
+        ],
+        "best_practices": [
+          "시간축은 X축에 배치",
+          "누적 비율은 100%로 정규화",
+          "색상은 카테고리별로 일관되게"
+        ]
+      }
+    },
+    "ratio_composition_analysis": {
+      "pie": {
+        "description": "전체 대비 항목 비율",
+        "required_columns": {
+          "categorical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "카테고리 + 비율/수치",
+          "항목 + 구성비"
+        ],
+        "examples": [
+          "시장 점유율",
+          "예산 배분",
+          "인구 구성"
+        ],
+        "best_practices": [
+          "비율이 큰 순서로 배치",
+          "색상은 구분이 잘 되도록",
+          "라벨은 가독성 있게"
+        ]
+      },
+      "donut": {
+        "description": "중앙 요약 정보가 있는 원형 차트",
+        "required_columns": {
+          "categorical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "카테고리 + 비율/수치",
+          "항목 + 구성비"
+        ],
+        "examples": [
+          "매출 구성비 (중앙에 총 매출)",
+          "예산 배분 (중앙에 총 예산)",
+          "인구 분포 (중앙에 총 인구)"
+        ],
+        "best_practices": [
+          "중앙에 핵심 요약 정보 표시",
+          "도넛 두께는 적절하게",
+          "색상 대비를 명확하게"
+        ]
+      },
+      "sunburst": {
+        "description": "다층 구조 비율 시각화",
+        "required_columns": {
+          "hierarchical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "계층 구조 + 수치",
+          "카테고리 > 서브카테고리 + 값"
+        ],
+        "examples": [
+          "회사 조직도 + 예산",
+          "제품 카테고리 + 매출",
+          "지역 > 도시 + 인구"
+        ],
+        "best_practices": [
+          "계층 레벨은 3-4단계 이하",
+          "색상은 계층별로 구분",
+          "상호작용으로 확대/축소"
+        ]
+      },
+      "treemap": {
+        "description": "계층형 비율 시각화",
+        "required_columns": {
+          "hierarchical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "계층 구조 + 수치",
+          "카테고리 > 서브카테고리 + 값"
+        ],
+        "examples": [
+          "회사 부서별 예산",
+          "제품 라인별 매출",
+          "지역별 인구 분포"
+        ],
+        "best_practices": [
+          "면적은 수치에 비례",
+          "색상은 카테고리별로 구분",
+          "라벨은 가독성 있게"
+        ]
+      }
+    },
+    "distribution_relation_analysis": {
+      "scatter": {
+        "description": "변수 간 상관관계",
+        "required_columns": {
+          "numeric": 2
+        },
+        "data_patterns": [
+          "수치 + 수치",
+          "측정값 + 측정값"
+        ],
+        "examples": [
+          "키 vs 몸무게",
+          "매출 vs 광고비",
+          "온도 vs 판매량"
+        ],
+        "best_practices": [
+          "X축은 독립변수",
+          "Y축은 종속변수",
+          "상관계수 표시"
+        ]
+      },
+      "bubble": {
+        "description": "3변수 비교(크기, 위치, 색상)",
+        "required_columns": {
+          "numeric": 3
+        },
+        "data_patterns": [
+          "X값 + Y값 + 크기값",
+          "수치 + 수치 + 수치"
+        ],
+        "examples": [
+          "GDP vs 기대수명 vs 인구",
+          "매출 vs 고객수 vs 이익률",
+          "온도 vs 습도 vs 강수량"
+        ],
+        "best_practices": [
+          "X, Y축은 주요 변수",
+          "크기는 3번째 변수",
+          "색상으로 추가 정보 표현"
+        ]
+      },
+      "histogram": {
+        "description": "데이터 분포 확인",
+        "required_columns": {
+          "numeric": 1
+        },
+        "data_patterns": [
+          "수치 데이터",
+          "연속형 데이터"
+        ],
+        "examples": [
+          "나이 분포",
+          "소득 분포",
+          "시험 점수 분포"
+        ],
+        "best_practices": [
+          "구간 수는 적절하게 (5-20개)",
+          "구간 경계는 명확하게",
+          "정규분포 여부 확인"
+        ]
+      },
+      "boxplot": {
+        "description": "데이터 분포와 이상치 확인",
+        "required_columns": {
+          "categorical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "카테고리 + 수치",
+          "그룹 + 측정값"
+        ],
+        "examples": [
+          "부서별 급여 분포",
+          "제품별 품질 점수",
+          "지역별 온도 분포"
+        ],
+        "best_practices": [
+          "중앙값, 사분위수 명확히 표시",
+          "이상치는 별도로 표시",
+          "비교를 위한 일관된 스케일"
+        ]
+      }
+    },
+    "special_analysis": {
+      "radar": {
+        "description": "다차원 데이터 비교",
+        "required_columns": {
+          "categorical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "카테고리 + 수치",
+          "항목 + 측정값"
+        ],
+        "examples": [
+          "직원 역량 평가",
+          "제품 특성 비교",
+          "지역별 인프라 평가"
+        ],
+        "best_practices": [
+          "축은 균등하게 배치",
+          "스케일은 일관되게",
+          "다중 데이터는 색상으로 구분"
+        ]
+      },
+
+      "gauge": {
+        "description": "KPI, 목표 달성률",
+        "required_columns": {
+          "numeric": 1
+        },
+        "data_patterns": [
+          "현재값",
+          "목표값 (비교용)"
+        ],
+        "examples": [
+          "매출 달성률",
+          "고객 만족도",
+          "생산성 지표"
+        ],
+        "best_practices": [
+          "목표값은 명확하게 표시",
+          "색상은 성과 수준별로 구분",
+          "현재값은 강조 표시"
+        ]
+      },
+      "wordcloud": {
+        "description": "텍스트 데이터 빈도 시각화",
+        "required_columns": {
+          "text": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "단어/구문 + 빈도",
+          "키워드 + 가중치"
+        ],
+        "examples": [
+          "고객 피드백 키워드",
+          "뉴스 제목 분석",
+          "소셜미디어 해시태그"
+        ],
+        "best_practices": [
+          "글자 크기는 빈도에 비례",
+          "색상은 카테고리별로 구분",
+          "가독성을 위한 적절한 간격"
+        ]
+      },
+      "timeline": {
+        "description": "프로젝트 일정 및 공정표 관리",
+        "required_columns": {
+          "categorical": 1,
+          "date": 2
+        },
+        "data_patterns": [
+          "작업 + 시작일 + 종료일",
+          "태스크 + 시작시간 + 종료시간"
+        ],
+        "examples": [
+          "프로젝트 일정",
+          "공정표",
+          "업무 계획"
+        ],
+        "best_practices": [
+          "시간축은 X축에 배치",
+          "작업은 Y축에 배치",
+          "진행률은 색상과 투명도로 표현"
+        ]
+      }
+    },
+    "advanced_analysis": {
+      "heatmap": {
+        "description": "값의 크기를 색으로 표현",
+        "required_columns": {
+          "categorical": 2,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "X카테고리 + Y카테고리 + 값",
+          "행 + 열 + 셀값"
+        ],
+        "examples": [
+          "시간대별 요일별 매출",
+          "지역별 제품별 선호도",
+          "부서별 월별 성과"
+        ],
+        "best_practices": [
+          "색상 스케일은 직관적으로",
+          "값은 셀 중앙에 표시",
+          "색상 범례는 명확하게"
+        ]
+      },
+      "waterfall": {
+        "description": "증가·감소 요인별 변화 시각화",
+        "required_columns": {
+          "categorical": 1,
+          "numeric": 1
+        },
+        "data_patterns": [
+          "요인 + 증감값",
+          "항목 + 변화량"
+        ],
+        "examples": [
+          "매출 변화 요인 분석",
+          "예산 증감 요인",
+          "이익 변화 분석"
+        ],
+        "best_practices": [
+          "시작값과 최종값은 강조",
+          "증가/감소는 색상으로 구분",
+          "누적 효과를 명확하게"
+        ]
+      },
+      "combo": {
+        "description": "서로 다른 유형 데이터 동시 비교",
+        "required_columns": {
+          "categorical": 1,
+          "numeric": 2
+        },
+        "data_patterns": [
+          "카테고리 + 막대값 + 선값",
+          "항목 + 비교값 + 추세값"
+        ],
+        "examples": [
+          "제품별 매출 (막대) + 성장률 (선)",
+          "월별 방문자수 (막대) + 전환율 (선)",
+          "지역별 인구 (막대) + 증가율 (선)"
+        ],
+        "best_practices": [
+          "막대와 선은 명확히 구분",
+          "Y축 스케일은 적절하게",
+          "범례는 두 차트 유형 모두 표시"
+        ]
+      },
+      "panel": {
+        "description": "여러 차트를 그리드로 배치",
+        "required_columns": {
+          "mixed": "여러 데이터 타입"
+        },
+        "data_patterns": [
+          "여러 차트 데이터",
+          "다양한 분석 결과"
+        ],
+        "examples": [
+          "대시보드",
+          "종합 분석 리포트",
+          "비교 분석"
+        ],
+        "best_practices": [
+          "그리드 레이아웃은 일관되게",
+          "차트 간 간격은 적절하게",
+          "전체적인 시각적 균형 유지"
+        ]
+      }
+    },
+    "map_location_visualization": {
+      "map": {
+        "description": "지도에 마커 표시",
+        "required_columns": {
+          "address_or_coordinates": 1
+        },
+        "data_patterns": [
+          "위도 + 경도",
+          "주소 (카카오 API 키가 있을 때)"
+        ],
+        "examples": [
+          "지역별 매출",
+          "지점별 고객 수",
+          "지역별 인구 밀도"
+        ],
+        "best_practices": [
+          "지도는 적절한 줌 레벨로",
+          "마커는 가독성 있게",
+          "색상과 크기로 값 표현"
+        ]
+      }
+    }
+  }
+} 

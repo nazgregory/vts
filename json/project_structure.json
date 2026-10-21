@@ -1,0 +1,297 @@
+{
+  "project_overview": {
+    "name": "데이터 시각화 대시보드",
+    "version": "1.0.0",
+    "last_updated": "2026-10-21",
+    "description": "React + TypeScript 기반의 데이터 시각화 웹 애플리케이션 + Node.js 백엔드 트래킹 서버"
+  },
+  "directory_structure": {
+    "root": {
+      "description": "프로젝트 루트 디렉토리",
+      "files": [
+        "package.json",
+        "tsconfig.json",
+        "vite.config.ts",
+        "tailwind.config.js",
+        "README.md"
+      ]
+    },
+    "src": {
+      "description": "소스 코드 디렉토리",
+      "components": {
+        "description": "React 컴포넌트들",
+        "files": [
+          "App.tsx",
+          "VisualizationDashboard.tsx",
+          "ChartTypeSelector.tsx",
+          "DataInputCard.tsx",
+          "FileUpload.tsx",
+          "ChartCustomizationPanel.tsx",
+          "UnifiedChartRenderer.tsx",
+          "MapChart.tsx",
+          "TimelineChart.tsx",
+          "GaugeChart.tsx",
+          "WordCloudChart.tsx",
+          "SampleVisualizationGallery.tsx",
+          "VisualizationGallery.tsx",
+          "DataGuide.tsx",
+          "VisualizationDataGuide.tsx",
+          "ChartSatisfactionRating.tsx",
+          "GallerySatisfactionRating.tsx",
+          "TrackingProvider.tsx",
+          "StarLoader.tsx"
+        ]
+      },
+      "hooks": {
+        "description": "React 훅",
+        "files": [
+          "useTracking.ts"
+        ]
+      },
+      "utils": {
+        "description": "유틸리티 함수들",
+        "files": [
+          "dataParser.ts",
+          "plotlyChartRenderer.ts",
+          "chartRenderer.ts",
+          "colorPalettes.ts",
+          "downloadUtils.ts",
+          "dataExport.ts",
+          "sampleDataManager.ts",
+          "apiConfig.ts",
+          "tracking.ts"
+        ]
+      },
+      "types": {
+        "description": "TypeScript 타입 정의",
+        "files": [
+          "index.ts",
+          "chartCustomization.ts"
+        ]
+      },
+      "test": {
+        "description": "테스트 파일들",
+        "files": [
+          "setup.ts"
+        ]
+      }
+    },
+    "public": {
+      "description": "정적 파일들",
+      "sample_data": {
+        "description": "6개 분야별 21가지 차트 유형 샘플 데이터",
+        "files": [
+          "area_chart.csv",
+          "bar_chart.csv",
+          "boxplot_chart.csv",
+          "bubble_chart.csv",
+          "combo_chart.csv",
+          "donut_chart.csv",
+          "gauge_chart.csv",
+          "heatmap_chart.csv",
+          "histogram_chart.csv",
+          "line_chart.csv",
+          "map.csv",
+          "panel_chart.csv",
+          "pie_chart.csv",
+          "radar_chart.csv",
+          "scatter_chart.csv",
+          "stacked_bar_chart.csv",
+          "sunburst_chart.csv",
+          "timeline_chart.csv",
+          "treemap_chart.csv",
+          "waterfall_chart.csv",
+          "wordcloud_chart.csv"
+        ]
+      }
+    },
+    "json": {
+      "description": "프로젝트 참조 데이터",
+      "files": [
+        "definition.json",
+        "function.json",
+        "variable.json",
+        "hardcode.json",
+        "project_structure.json",
+        "chart_mapping.json",
+        "color_palettes.json"
+      ]
+    },
+    "md": {
+      "description": "프로젝트 문서",
+      "files": [
+        "README.md",
+        "definition_summary.md",
+        "function_summary.md",
+        "variable_summary.md",
+        "hardcode_summary.md",
+        "project_structure_summary.md",
+        "chart_mapping_summary.md",
+        "color_palettes_summary.md"
+      ]
+    },
+    "server": {
+      "description": "Node.js 백엔드 트래킹 서버",
+      "src": {
+        "services": {
+          "description": "비즈니스 로직 서비스",
+          "files": [
+            "sessionService.ts",
+            "eventService.ts"
+          ]
+        },
+        "routes": {
+          "description": "API 라우트",
+          "files": [
+            "session.ts",
+            "collect.ts",
+            "satisfaction.ts"
+          ]
+        },
+        "middleware": {
+          "description": "미들웨어",
+          "files": [
+            "security.ts",
+            "validation.ts"
+          ]
+        },
+        "utils": {
+          "description": "유틸리티 함수",
+          "files": [
+            "security.ts",
+            "logger.ts"
+          ]
+        },
+        "types": {
+          "description": "TypeScript 타입 정의",
+          "files": [
+            "index.ts"
+          ]
+        }
+      },
+      "prisma": {
+        "description": "데이터베이스 스키마",
+        "files": [
+          "schema.prisma"
+        ]
+      },
+      "config_files": [
+        "package.json",
+        "tsconfig.json",
+        "env.example"
+      ]
+    }
+  },
+  "file_mapping": {
+    "core_components": {
+      "App.tsx": "애플리케이션 진입점, 라우팅, 상태 관리",
+      "VisualizationDashboard.tsx": "메인 대시보드, 단계별 차트 생성 프로세스",
+      "ChartTypeSelector.tsx": "6개 분야별 21가지 차트 유형 선택 및 샘플 데이터 다운로드",
+      "DataInputCard.tsx": "CSV/Excel 파일 업로드 및 데이터 입력",
+      "ChartCustomizationPanel.tsx": "차트 커스터마이징 (색상, 범례, 축 등)",
+      "UnifiedChartRenderer.tsx": "차트 유형별 렌더링",
+      "MapChart.tsx": "지도 시각화. 위도·경도 또는 카카오 주소 검색",
+      "SampleVisualizationGallery.tsx": "샘플 시각화 갤러리",
+      "ChartSatisfactionRating.tsx": "차트 만족도 입력",
+      "TrackingProvider.tsx": "사용 이력 수집",
+      "StarLoader.tsx": "로딩 애니메이션 컴포넌트"
+    },
+    "utility_functions": {
+      "dataParser.ts": "CSV/Excel 파일 파싱",
+      "plotlyChartRenderer.ts": "Plotly.js 기반 차트 렌더링",
+      "chartRenderer.ts": "차트 렌더링 보조",
+      "colorPalettes.ts": "색상 팔레트 관리",
+      "downloadUtils.ts": "차트 이미지 다운로드",
+      "dataExport.ts": "데이터 내보내기",
+      "sampleDataManager.ts": "샘플 데이터 관리",
+      "apiConfig.ts": "백엔드 API 주소",
+      "tracking.ts": "사용 이력 수집"
+    },
+    "type_definitions": {
+      "index.ts": "기본 타입 정의",
+      "chartCustomization.ts": "차트 커스터마이징 타입"
+    },
+    "backend_services": {
+      "sessionService.ts": "세션 관리 및 IP 해시 기반 사용자 식별",
+      "eventService.ts": "이벤트 수집 및 배치 처리"
+    },
+    "backend_routes": {
+      "session.ts": "세션 시작/검증 API",
+      "collect.ts": "이벤트 배치 수집 API",
+      "satisfaction.ts": "만족도 조사 API"
+    },
+    "backend_middleware": {
+      "security.ts": "보안 헤더, CORS, 속도 제한",
+      "validation.ts": "요청 데이터 검증"
+    }
+  },
+  "dependencies": {
+    "core": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "typescript": "^5.9.2"
+    },
+    "charting": {
+      "plotly.js": "2.27.0 (public/vendor/plotly-2.27.0.min.js)",
+      "leaflet": "^1.9.4",
+      "chart.js": "^4.5.0"
+    },
+    "data_processing": {
+      "papaparse": "^5.4.1",
+      "read-excel-file": "^9.3.12"
+    },
+    "ui": {
+      "tailwindcss": "^3.3.5",
+      "lucide-react": "^0.294.0"
+    },
+    "development": {
+      "vite": "^6.4.4",
+      "@types/react": "^18.2.37",
+      "@types/react-dom": "^18.2.15"
+    }
+  },
+  "backend_dependencies": {
+    "core": {
+      "node": ">=18.0.0",
+      "express": "^4.22.3",
+      "typescript": "^5.3.3"
+    },
+    "database": {
+      "prisma": "^5.7.1",
+      "@prisma/client": "^5.7.1",
+      "postgresql": ">=13.0"
+    },
+    "security": {
+      "helmet": "^7.1.0",
+      "cors": "^2.8.5",
+      "express-rate-limit": "^7.1.0"
+    },
+    "validation": {
+      "zod": "^3.22.0"
+    },
+    "logging": {
+      "pino": "^8.17.0"
+    },
+    "utilities": {
+      "dotenv": "^16.3.0",
+      "compression": "^1.7.4"
+    }
+  },
+  "build_configuration": {
+    "frontend": {
+      "bundler": "Vite",
+      "transpiler": "TypeScript",
+      "css_framework": "Tailwind CSS",
+      "chart_library": "Plotly.js",
+      "development_server": "Vite Dev Server (포트 3000)"
+    },
+    "backend": {
+      "runtime": "Node.js 18+",
+      "framework": "Express.js",
+      "transpiler": "TypeScript",
+      "orm": "Prisma",
+      "database": "PostgreSQL",
+      "development_server": "Node.js Dev Server (포트 3001)"
+    }
+  }
+}

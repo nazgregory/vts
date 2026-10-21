@@ -1,0 +1,102 @@
+{
+  "core_functions": {
+    "parseCSV": {
+      "description": "CSV 텍스트를 파싱하여 JavaScript 객체 배열로 변환",
+      "parameters": ["csvText: string"],
+      "returns": "array<object>",
+      "example": "parseCSV('날짜,매출\n2024-01,1200') → [{'날짜': '2024-01', '매출': 1200}]",
+      "error_handling": "잘못된 CSV 형식 시 에러 발생",
+      "file": "src/utils/dataParser.ts"
+    },
+    "parseExcel": {
+      "description": "Excel 파일을 파싱하여 데이터 배열로 변환",
+      "parameters": ["file: File"],
+      "returns": "Promise<array<object>>",
+      "dependencies": ["read-excel-file 라이브러리"],
+      "error_handling": "파일 읽기 실패 시 Promise rejection",
+      "file": "src/utils/dataParser.ts"
+    },
+    "createPlotlyChartData": {
+      "description": "Plotly 트레이스 데이터를 만든다. 지도, 게이지, 워드클라우드, 타임라인은 각자 컴포넌트에서 그린다",
+      "parameters": ["data: ChartData[]", "type: ChartType", "customization: ChartCustomization"],
+      "returns": "Plotly 데이터 배열",
+      "file": "src/utils/plotlyChartRenderer.ts"
+    },
+    "createPlotlyLayout": {
+      "description": "Plotly 레이아웃을 만든다",
+      "parameters": ["data: ChartData[]", "type: ChartType", "customization: ChartCustomization"],
+      "returns": "Plotly 레이아웃",
+      "file": "src/utils/plotlyChartRenderer.ts"
+    }
+  },
+  "utility_functions": {
+    "validateFile": {
+      "description": "업로드된 파일의 유효성 검사",
+      "parameters": ["file: File"],
+      "returns": "object<{isValid: boolean, error?: string}>",
+      "validations": [
+        "파일 크기 제한 (10MB)",
+        "파일 형식 (.csv, .xlsx)"
+      ],
+      "file": "src/utils/dataParser.ts"
+    },
+    "downloadChart": {
+      "description": "화면에 그려진 차트를 파일로 받는다. 대시보드는 dataExport의 함수를 쓴다",
+      "parameters": ["chartContainer: HTMLElement", "format: 'png' | 'svg' | 'pdf'", "filename: string"],
+      "returns": "Promise<void>",
+      "formats": ["PNG", "SVG", "PDF"],
+      "dependencies": ["html2canvas"],
+      "file": "src/utils/dataExport.ts"
+    },
+    "downloadSampleFile": {
+      "description": "차트 유형별 샘플 XLSX를 public/sample_data에서 받는다",
+      "parameters": ["chartType: string"],
+      "returns": "void",
+      "file": "src/utils/dataExport.ts"
+    },
+    "generateCSV": {
+      "description": "객체 배열을 CSV 문자열로 만든다",
+      "parameters": ["data: array", "headers: string[]"],
+      "returns": "string",
+      "file": "src/utils/dataExport.ts"
+    },
+    "getSampleDataContent": {
+      "description": "차트 유형별 샘플 CSV 내용을 읽어 입력 안내에 보여 준다",
+      "parameters": ["chartType: ChartType"],
+      "returns": "Promise<string>",
+      "file": "src/utils/sampleDataManager.ts"
+    }
+  },
+
+  "event_handlers": {
+    "handleFileUpload": {
+      "description": "파일 업로드 이벤트 처리",
+      "triggers": ["drag & drop", "file input change"],
+      "actions": [
+        "파일 유효성 검사",
+        "파일 파싱"
+      ],
+      "file": "src/components/DataInputCard.tsx"
+    },
+    "handleChartTypeSelect": {
+      "description": "차트 유형 선택 이벤트 처리",
+      "triggers": ["차트 유형 버튼 클릭"],
+      "actions": [
+        "선택된 차트 유형 저장",
+        "다음 단계로 진행",
+        "관련 샘플 데이터 표시"
+      ],
+      "file": "src/components/ChartTypeSelector.tsx"
+    },
+    "handleCustomizationChange": {
+      "description": "차트 커스터마이징 설정 변경 이벤트 처리",
+      "triggers": ["색상 변경", "제목 입력", "축 레이블 수정", "범례 설정"],
+      "actions": [
+        "설정 값 업데이트",
+        "차트 재렌더링",
+        "설정 저장"
+      ],
+      "file": "src/components/ChartCustomizationPanel.tsx"
+    }
+  }
+} 
